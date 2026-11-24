@@ -247,3 +247,31 @@ p { line-height: 1.7; }
   .dashboard-grid { grid-template-columns: 1fr; }
   .dashboard-grid .form-grid { grid-template-columns: 1fr; }
 }
+
+/* 5주차: 식품 검색창 디자인 */
+.search-field {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+.search-field input {
+  width: 100%;
+}
+
+/* 긴 식품명 줄바꿈 처리 */
+.food-item > div:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 모바일 화면 레이아웃 개선 */
+@media (max-width: 650px) {
+  .page-heading {
+    display: block;
+  }
+
+  .section-heading {
+    flex-wrap: wrap;
+  }
+}
+
