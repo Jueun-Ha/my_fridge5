@@ -10,7 +10,8 @@ a { color: inherit; text-decoration: none; }
 .header-note, .header-link, .muted { color: #657789; }
 .header-link { font-size: 14px; }
 .home-main { padding-top: 70px; padding-bottom: 60px; }
-.intro-card { background: #C3D3E3; border-radius: 18px; padding: 55px 45px; }
+/* 5주차: 냉장고 문 디자인 수정 */
+.intro-card { background: #fff; border: 10px solid #C3D3E3; border-radius: 30px; padding: 55px 45px 55px 110px; position: relative; min-height: 400px  box-shadow: 0 5px 0 #DCE4EC; }
 .eyebrow { color: #4B657D; font-weight: bold; font-size: 13px; letter-spacing: 2px; }
 h1 { font-size: 34px; line-height: 1.4; margin: 12px 0 15px; }
 h2 { font-size: 20px; margin: 0 0 12px; }
@@ -264,14 +265,28 @@ p { line-height: 1.7; }
   overflow-wrap: anywhere;
 }
 
-/* 모바일 화면 레이아웃 개선 */
-@media (max-width: 650px) {
-  .page-heading {
-    display: block;
-  }
-
-  .section-heading {
-    flex-wrap: wrap;
-  }
+/* 5주차: 냉장고 손잡이 디자인 */
+.intro-card .primary-button {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 190px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 3px;
+  background: #C3D3E3;
+  color: #344B60;
+  border-radius: 15px;
+  box-shadow: 4px 4px 0 #AFC4D8;
 }
 
+/* 손잡이 hover 효과 */
+.intro-card .primary-button:hover {
+  background: #AFC4D8;
+}
