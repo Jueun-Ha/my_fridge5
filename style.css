@@ -27,15 +27,6 @@ a { color: inherit; text-decoration: none; }
 .header-link:hover {
   background: #AFC4D8;
 }
-.header-link::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 20px;
-  margin-right: 10px;
-  border-radius: 999px;
-  background: #819DB7;
-}
 
 .home-main { padding-top: 70px; padding-bottom: 60px; }
 
