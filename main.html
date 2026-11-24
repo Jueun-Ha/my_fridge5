@@ -42,8 +42,9 @@
       </form>
     </section>
     </div>
-    <!-- 4주차: 소비기한 임박 또는 경과 식품 안내 -->
-    <div id="expiry-alert" class="expiry-alert" role="status" aria-live="polite" hidden></div>
+    <!-- 5주차: 소비기한 임박 및 경과 알림 분리-->
+    <div id="expiry-alert" class="expiry-alert" role="status" hidden></div>
+    <div id="soon-alert" class="soon-alert" role="status" hidden></div>
     <section class="panel food-list-panel" aria-labelledby="list-title">
       <div class="section-heading">
         <h2 id="list-title">식품 목록</h2>
@@ -52,6 +53,10 @@
           <option value="name-asc">식품이름 순</option>
           <option value="recent">최근 등록 순</option>
         </select>
+      </div>
+      <!-- 5주차: 식품명 검색-->
+      <div class="field search-field">
+        <input id="food-search" type="search" placeholder="식품명 검색" aria-label="식품명 검색">
       </div>
       <p id="filter-note" class="section-help">전체 식품을 표시하고 있습니다.</p>
       <div id="food-list" class="empty-state">
