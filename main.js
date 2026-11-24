@@ -21,7 +21,10 @@ const shoppingList = document.querySelector("#shopping-list");
 const sortSelect = document.querySelector("#sort-select");
 const summaryButtons = document.querySelectorAll(".summary-box");
 const filterNote = document.querySelector("#filter-note");
-const expiryAlert = document.querySelector("#expiry-alert");
+//5주차: 식품 경과/임박 알림
+const expiredAlert = document.querySelector("#expired-alert");
+const soonAlert = document.querySelector("#soon-alert");
+const searchInput = document.querySelector("#food-search");
 
 // 4주차: 브라우저에 식품 및 장보기 목록을 저장합니다.
 const STORAGE_KEY = "myFridgeData";
@@ -65,30 +68,16 @@ function loadData() {
   }
 }
 
-// 4주차: 소비기한 임박·경과 식품이 있으면 안내 메시지를 표시합니다.
+// 5주차: 소비기한 임박 및 경과 알림 분리
 function updateExpiryAlert(soonCount, expiredCount) {
-  if (soonCount === 0 && expiredCount === 0) {
-    expiryAlert.hidden = true;
-    return;
-  }
+  expiredAlert.hidden = expiredCount === 0;
+  soonAlert.hidden = soonCount === 0;
 
-  expiryAlert.hidden = false;
-  expiryAlert.className = "expiry-alert";
-  let message = "";
+  expiredAlert.textContent =
+    "소비기한이 지난 식품이 " + expiredCount + "개 있습니다.";
 
-  if (expiredCount > 0) {
-    expiryAlert.classList.add("alert-expired");
-    message = "소비기한이 지난 식품이 " + expiredCount + "개 있습니다.";
-  } else {
-    expiryAlert.classList.add("alert-soon");
-  }
-
-  if (soonCount > 0) {
-    if (message) message += " ";
-    message += "소비기한이 임박한 식품이 " + soonCount + "개 있습니다.";
-  }
-
-  expiryAlert.textContent = message + " 냉장고 목록을 확인해 주세요.";
+  soonAlert.textContent =
+    "소비기한이 임박한 식품이 " + soonCount + "개 있습니다.";
 }
 
 // 소비기한까지 남은 일수를 계산합니다.
@@ -185,20 +174,37 @@ function renderFoods() {
     filterNote.textContent = "전체 식품을 표시하고 있습니다.";
   }
 
+  // 5주차: 식품명 검색
+const keyword = searchInput.value.trim().toLowerCase();
+
+visibleFoods = visibleFoods.filter(function (food) {
+  return food.name.toLowerCase().includes(keyword);
+});
+
+// 검색 결과 개수 표시
+if (keyword) {
+  filterNote.textContent +=
+    " 검색 결과: " + visibleFoods.length + "개";
+}
+  
   foodList.innerHTML = "";
   if (visibleFoods.length === 0) {
-    foodList.className = "empty-state";
-    const p = document.createElement("p");
-    if (currentFilter === "soon") {
-      p.textContent = "소비기한이 임박한 식품이 없습니다.";
-    } else if (currentFilter === "expired") {
-      p.textContent = "소비기한이 지난 식품이 없습니다.";
-    } else {
-      p.textContent = "아직 등록된 식품이 없습니다.";
-    }
-    foodList.appendChild(p);
-    return;
+  foodList.className = "empty-state";
+  const p = document.createElement("p");
+
+  if (keyword) {
+    p.textContent = "검색 결과가 없습니다.";
+  } else if (currentFilter === "soon") {
+    p.textContent = "소비기한이 임박한 식품이 없습니다.";
+  } else if (currentFilter === "expired") {
+    p.textContent = "소비기한이 지난 식품이 없습니다.";
+  } else {
+    p.textContent = "아직 등록된 식품이 없습니다.";
   }
+
+  foodList.appendChild(p);
+  return;
+}
 
   foodList.className = "";
   // 2주차 정렬 기능을 유지합니다.
@@ -341,6 +347,11 @@ function renderShopping() {
     shoppingList.appendChild(row);
   });
 }
+
+// 5주차: 검색어 입력 시 실시간 목록 갱신
+searchInput.addEventListener("input", function () {
+  renderFoods();
+});
 
 sortSelect.addEventListener("change", function () {
   renderFoods();
